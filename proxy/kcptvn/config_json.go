@@ -16,7 +16,7 @@ func (this *Config) UnmarshalJSON(data []byte) error {
 }
 
 func init() {
-	config.RegisterOutboundConfig("kcptun",
+	config.RegisterOutboundConfig("kcptvn",
 		func(data []byte) (interface{}, error) {
 			c := new(Config)
 			if err := json.Unmarshal(data, c); err != nil {

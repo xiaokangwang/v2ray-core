@@ -20,6 +20,8 @@ import (
 	_ "github.com/v2ray/v2ray-core/proxy/socks"
 	_ "github.com/v2ray/v2ray-core/proxy/vmess/inbound"
 	_ "github.com/v2ray/v2ray-core/proxy/vmess/outbound"
+
+	_ "github.com/v2ray/v2ray-core/proxy/kcptvn"
 )
 
 var (

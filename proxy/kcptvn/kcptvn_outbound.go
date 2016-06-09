@@ -39,6 +39,7 @@ func (koc *KCPOutboundConnection) EncodeAndSendHeader(conn io.Writer, destinatio
 	encodeDestJSON(destination, conn)
 }
 func (koc *KCPOutboundConnection) Dispatch(destination v2net.Destination, payload *alloc.Buffer, ray ray.OutboundRay) error {
+	log.Info("kcptvn: Dispatching.")
 	koconn, err := koc.InitializeNewKCPOutboundConnection()
 	defer ray.OutboundInput().Release()
 	defer ray.OutboundOutput().Close()

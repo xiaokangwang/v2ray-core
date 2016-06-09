@@ -49,8 +49,9 @@ func (kic *KCPInboundConnection) ReadAndDecodeHeader(conn io.Reader) v2net.Desti
 	return decodeDestJSON(conn)
 }
 func (kic *KCPInboundConnection) HandleIncomingConn(conn *kcp.UDPSession) {
+	log.Info("kcptvn: Incoming Connection received.")
 	dest := kic.ReadAndDecodeHeader(conn)
-
+	log.Info("kcptvn: Header ctx:%v", dest)
 	defer conn.Close()
 
 	ray := kic.packetDispatcher.DispatchToOutbound(dest)
@@ -85,6 +86,7 @@ func (kic *KCPInboundConnection) HandleIncomingConn(conn *kcp.UDPSession) {
 
 func (kic *KCPInboundConnection) GoServerConn(us *kcp.Listener) {
 	for kic.accepting {
+		log.Info("kcptvn: waiting for accept")
 		conn, err := us.Accept()
 
 		nodelay, interval, resend, nc := 0, 40, 0, 0
@@ -111,8 +113,8 @@ func (kic *KCPInboundConnection) GoServerConn(us *kcp.Listener) {
 		conn.SetDSCP(kic.config.Dscp)
 		if err != nil {
 			log.Info("kcptvn: Failed to Accept KcpUdp connection: %s", err.Error())
-			go kic.HandleIncomingConn(conn)
 		}
+		go kic.HandleIncomingConn(conn)
 	}
 	us.Close()
 }

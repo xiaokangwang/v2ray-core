@@ -28,7 +28,7 @@ type KCPOutboundConnection struct {
 }
 
 func (koc *KCPOutboundConnection) InitializeNewKCPOutboundConnection() (*kcp.UDPSession, error) {
-	conn, err := kcp.DialWithOptions(koc.config.Fec, koc.config.Address+koc.config.Port, []byte(koc.config.Key))
+	conn, err := kcp.DialWithOptions(koc.config.Fec, koc.config.Address+":"+koc.config.Port, []byte(koc.config.Key))
 	if err != nil {
 		log.Info("kcptvn: Failed to initialize KcpUdp connection: %s", err.Error())
 	}

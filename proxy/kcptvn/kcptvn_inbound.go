@@ -120,7 +120,7 @@ func (kic *KCPInboundConnection) GoServerConn(us *kcp.Listener) {
 func (kic *KCPInboundConnection) Listen(address v2net.Address, port v2net.Port) error {
 	kic.accepting = true
 	kic.listeningPort, _ = v2net.PortFromString(kic.config.Port)
-	lis, err := kcp.ListenWithOptions(kic.config.Fec, kic.config.Address+kic.config.Port, []byte(kic.config.Key))
+	lis, err := kcp.ListenWithOptions(kic.config.Fec, kic.config.Address+":"+kic.config.Port, []byte(kic.config.Key))
 	if err != nil {
 		log.Info("kcptvn: Failed to listen KcpUdp connection: %s", err.Error())
 		log.Error("kcptvn: Listened Unsuccessfully: Failed to listen KcpUdp connection")

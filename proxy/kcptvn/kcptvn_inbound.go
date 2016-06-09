@@ -84,7 +84,7 @@ func (kic *KCPInboundConnection) HandleIncomingConn(conn *kcp.UDPSession) {
 }
 
 func (kic *KCPInboundConnection) GoServerConn(us *kcp.Listener) {
-	for {
+	for kic.accepting {
 		conn, err := us.Accept()
 
 		nodelay, interval, resend, nc := 0, 40, 0, 0
@@ -114,9 +114,12 @@ func (kic *KCPInboundConnection) GoServerConn(us *kcp.Listener) {
 			go kic.HandleIncomingConn(conn)
 		}
 	}
+	us.Close()
 }
 
 func (kic *KCPInboundConnection) Listen(address v2net.Address, port v2net.Port) error {
+	kic.accepting = true
+	kic.listeningPort, _ = v2net.PortFromString(kic.config.Port)
 	lis, err := kcp.ListenWithOptions(kic.config.Fec, kic.config.Address+kic.config.Port, []byte(kic.config.Key))
 	if err != nil {
 		log.Info("kcptvn: Failed to listen KcpUdp connection: %s", err.Error())

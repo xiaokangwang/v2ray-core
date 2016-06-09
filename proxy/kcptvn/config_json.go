@@ -7,14 +7,6 @@ import (
 	"github.com/v2ray/v2ray-core/proxy/internal/config"
 )
 
-func (this *Config) UnmarshalJSON(data []byte) error {
-
-	if err := json.Unmarshal(data, this); err != nil {
-		return err
-	}
-	return nil
-}
-
 func init() {
 	config.RegisterOutboundConfig("kcptvn",
 		func(data []byte) (interface{}, error) {

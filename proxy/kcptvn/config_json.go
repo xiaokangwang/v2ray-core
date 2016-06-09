@@ -16,4 +16,12 @@ func init() {
 			}
 			return c, nil
 		})
+	config.RegisterInboundConfig("kcptvn",
+		func(data []byte) (interface{}, error) {
+			c := new(Config)
+			if err := json.Unmarshal(data, c); err != nil {
+				return nil, err
+			}
+			return c, nil
+		})
 }

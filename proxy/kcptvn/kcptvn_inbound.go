@@ -51,7 +51,7 @@ func (kic *KCPInboundConnection) ReadAndDecodeHeader(conn io.Reader) v2net.Desti
 func (kic *KCPInboundConnection) HandleIncomingConn(conn *kcp.UDPSession) {
 	log.Info("kcptvn: Incoming Connection received.")
 	dest := kic.ReadAndDecodeHeader(conn)
-	log.Info("kcptvn: Header ctx:%v", dest)
+	log.Info("kcptvn: Header ctx:", dest)
 	defer conn.Close()
 
 	ray := kic.packetDispatcher.DispatchToOutbound(dest)

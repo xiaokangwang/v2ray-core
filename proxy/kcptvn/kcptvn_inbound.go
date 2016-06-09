@@ -22,7 +22,7 @@ func NewKCPInboundConnection(config *Config, space app.Space) *KCPInboundConnect
 
 	space.InitializeApplication(func() error {
 		if !space.HasApp(dispatcher.APP_ID) {
-			log.Error("Dokodemo: Dispatcher is not found in the space.")
+			log.Error("kcptvn: Dispatcher is not found in the space.")
 			return app.ErrorMissingApplication
 		}
 		c.packetDispatcher = space.GetApp(dispatcher.APP_ID).(dispatcher.PacketDispatcher)

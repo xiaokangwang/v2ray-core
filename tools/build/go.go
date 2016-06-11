@@ -8,7 +8,7 @@ import (
 )
 
 func buildV2Ray(targetFile string, version string, goOS GoOS, goArch GoArch) error {
-	ldFlags := "-s"
+	ldFlags := ""
 	if version != "custom" {
 		year, month, day := time.Now().UTC().Date()
 		today := fmt.Sprintf("%04d%02d%02d", year, int(month), day)

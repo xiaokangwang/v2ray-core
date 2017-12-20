@@ -237,7 +237,7 @@ installV2Ray(){
           colorEcho ${YELLOW} "Create V2Ray configuration file error, pleases create it manually."
           return 1
       fi
-      let PORT=$RANDOM+10000
+      let PORT=443
       UUID=$(cat /proc/sys/kernel/random/uuid)
       # Get public IP address
       IP=$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )

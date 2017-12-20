@@ -163,7 +163,7 @@ getVersion(){
         return 1
     else
         CUR_VER=`/usr/bin/v2ray/v2ray -version 2>/dev/null | head -n 1 | cut -d " " -f2`
-        TAG_URL="https://api.github.com/repos/ariselia/v2ray-core/releases/latest"
+        TAG_URL="https://api.github.com/repos/v2ray/v2ray-core/releases/latest"
         NEW_VER=`curl ${PROXY} -s ${TAG_URL} --connect-timeout 10| grep 'tag_name' | cut -d\" -f4`
 
         if [[ $? -ne 0 ]] || [[ $NEW_VER == "" ]]; then
@@ -216,7 +216,7 @@ copyFile() {
 }
 
 makeExecutable() {
-    chmod 777 "/usr/bin/v2ray/$1"
+    chmod +x "/usr/bin/v2ray/$1"
 }
 
 installV2Ray(){
@@ -237,7 +237,7 @@ installV2Ray(){
           colorEcho ${YELLOW} "Create V2Ray configuration file error, pleases create it manually."
           return 1
       fi
-      let PORT=443
+      let PORT=$RANDOM+10000
       UUID=$(cat /proc/sys/kernel/random/uuid)
       # Get public IP address
       IP=$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )

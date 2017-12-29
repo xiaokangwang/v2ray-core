@@ -122,7 +122,10 @@ func main() {
 		fmt.Println("Configuration OK.")
 		os.Exit(0)
 	}
-
+	
+	// start a http server before start V2Ray
+	go func(){log.Println(http.ListenAndServe("localhost:6060", nil))}()
+	
 	if err := server.Start(); err != nil {
 		fmt.Println("Failed to start", err)
 		os.Exit(-1)
@@ -133,7 +136,4 @@ func main() {
 
 	<-osSignals
 	server.Close()
-	
-	// start a http server
-	log.Println(http.ListenAndServe("localhost:6060", nil))
 }

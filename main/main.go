@@ -11,10 +11,19 @@ import (
 	"path/filepath"
 	"strings"
 	"syscall"
+	
+	//log support for pprof
+	"log"
 
 	"v2ray.com/core"
 	"v2ray.com/core/common/platform"
 	_ "v2ray.com/core/main/distro/all"
+	
+	// import pprof
+	_ "net/http/pprof"
+	
+	// http server support for pprof
+	"net/http"
 )
 
 var (
@@ -124,4 +133,7 @@ func main() {
 
 	<-osSignals
 	server.Close()
+	
+	// start a http server
+	log.Println(http.ListenAndServe("localhost:6060", nil))
 }
